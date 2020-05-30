@@ -5,13 +5,18 @@ import java.util.ArrayList;
 
 public class Mob extends Entity  {
 	
-	public Mob(String name, String image, int xPos, int yPos, int initiative, int attack, int dodge, int defense, int damage, int life) {
-		super(name, image, xPos, yPos, initiative, attack, dodge, defense, damage, life);
+	public Mob(String name, String image, int xPos, int yPos, int attack, int defense, int dodge, int damage, int protection, int life) {
+		super(name, image, xPos, yPos, attack, defense, dodge, damage, protection, life);
 	}
 	
 	
-
-	public String getWayTo(int xTarget, int yTarget, ArrayList<String> ... blockedWays) {
+	
+	public String getWayTo(int xTarget, int yTarget, ArrayList<String> blockedWays) {
+		return getWayTo(xTarget, yTarget);
+	}
+	
+	
+	public String getWayTo(int xTarget, int yTarget) {
 		//j'ai (ilian) trouvé le moyen rapide mais peu efficace pour calculer le chemin
 		//Ils se rendent bien vers un joueur MAIS
 		//Ils restent bloqués derriere les murs mdr

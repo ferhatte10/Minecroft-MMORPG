@@ -3,6 +3,7 @@ package projet_azzouz_saidoun;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 
@@ -18,6 +19,8 @@ public class Window extends JFrame{
 		super("Jeu 2D trop cool");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setMinimumSize(new Dimension(1280, 720));
+		
+
 		
 		main = new JPanel() {
 			//On ajoute une image de fond pour le design ^^ (lalilah bogoss)
@@ -38,19 +41,20 @@ public class Window extends JFrame{
 		menu = new JPanelMenu();
 		menu.initComposants();
 		
-		inGame = new JPanelInGame();
+		
 		
 		
 		//Vrai
 		/*
 		  main.add(menu);
-		  
+		  */
 		 
 		 
-		 */
+		 
 		
 	
 		//TEMPORAIORE
+		inGame = new JPanelInGame();
 		main.setLayout(new BorderLayout());
 		main.add(new JScrollPane(inGame));
 		
@@ -61,6 +65,7 @@ public class Window extends JFrame{
 		this.initListeners();
 		this.setVisible(true);
 	}
+	
 
 	
 	public void initListeners() {

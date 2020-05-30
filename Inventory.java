@@ -2,9 +2,7 @@ package projet_azzouz_saidoun;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.*;
 
@@ -20,6 +18,8 @@ public class Inventory {
 	JButton buttonLeave = new JButton("Quitter");
 	JButton buttonUse = new JButton("Utiliser");
 	
+	JLabel lblTitre = new JLabel("Choisir un objet de l'inventaire");
+	JLabel lblNoObj = new JLabel("Aucun consomable dans l'inventaire");
 	
 	public Inventory(Player player) {
 		this.items = new ArrayList<Item>();
@@ -70,12 +70,16 @@ public class Inventory {
 		}
 	}
 	
-	public void toWindow() {
-		
+	public int getOvercrowded() {
+		return this.getEquipedArmor().getOvercrowded() + this.getEquipedWeapon().getOvercrowded();
+	}
+	
+	public JFrame toWindow() {
 		frame.add(inv);
 		frame.setBounds(200, 200, 200, 200);
 		
-		inv.add(new JLabel("Choisir un objet de l'inventaire"));
+		inv.removeAll();
+		inv.add(lblTitre);
 		
 		
 		
@@ -104,6 +108,7 @@ public class Inventory {
 				public void actionPerformed(ActionEvent e) {
 					Consumable consumable = (Consumable) itemsOptions.getSelectedItem();
 					getPlayer().use(consumable);
+					getPlayer().removeActionPoint(2);
 					items.remove(consumable);
 					frame.setVisible(false);
 					
@@ -117,7 +122,7 @@ public class Inventory {
 			inv.add(buttonUse);
 			
 		} else {
-			inv.add(new JLabel("Aucun consomable dans l'inventaire"));
+			inv.add(lblNoObj);
 			buttonLeave.addActionListener(new ActionListener() {
 				
 				@Override
@@ -130,7 +135,8 @@ public class Inventory {
 		}
 		
 		
-		frame.setVisible(true);
+		//frame.setVisible(true);
+		return frame;
 		
 	}
 	

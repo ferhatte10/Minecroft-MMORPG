@@ -3,7 +3,7 @@ package projet_azzouz_saidoun;
 public class ArmorNike extends Armor {
 
 	public ArmorNike(int xPos, int yPos) {
-		super("Ensemble Nike", "armorNike",true, true, xPos, yPos, 1);
+		super("Ensemble Nike", "armorNike",true, true, xPos, yPos, 1, 1);
 	}
 
 }

@@ -5,29 +5,32 @@ public class Entity extends Object {
 	private int life;
 	
 	//degres
-	private int initiative;
+	
 	private int attack;
-	private int dodge;
 	private int defense;
+	private int dodge;
 	private int damage;
+	private int protection;
 	
 	private int xPos;
 	private int yPos;
 	
 	
 	
-	public Entity(String name, String image, int xPos, int yPos, int initiative, int attack, int dodge, int defense, int damage, int life) {
+	public Entity(String name, String image, int xPos, int yPos,int attack,  int defense, int dodge,  int damage, int protection, int life) {
 		super(name, image, false, false);
 		this.isDead = false;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		
-		this.initiative = initiative;
-		this.attack = attack;
-		this.dodge = dodge;
-		this.defense = defense;
-		this.damage = damage;
 		this.life = life;
+		
+		this.attack = attack;
+		this.defense = defense;
+		this.dodge = dodge;
+		this.damage = damage;
+		this.protection = protection;
+		
 		
 		
 	}	
@@ -46,20 +49,36 @@ public class Entity extends Object {
 		return this.yPos;
 	}
 	
-	public int getInitiative() {
-		return this.initiative;
-	}
+	
 	public int getAttack() {
 		return this.attack;
 	}
-	public int getDodge() {
-		return this.dodge;
+	public void setAttaque(int attaque) {
+		this.attack = attaque;
 	}
 	public int getDefense() {
 		return this.defense;
 	}
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+	public int getDodge() {
+		return this.dodge;
+	}
+	public void setDodge(int dodge) {
+		this.dodge = dodge;
+	}
 	public int getDamage() {
 		return this.damage;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	public int getProtection() {
+		return this.protection;
+	}
+	public void setProtection(int protection) {
+		this.protection = protection;
 	}
 	public int getLife() {
 		return this.life;
@@ -74,6 +93,14 @@ public class Entity extends Object {
 		if (this.life <= 0) {
 			this.life = 0;
 			this.isDead = true;
+			
+			this.attack = 0;
+			this.defense = 0;
+			this.dodge = 0;
+			this.damage = 0;	
+			this.protection= 0;
+			
+						
 			return true;
 		} else {
 			return false; 
@@ -99,8 +126,8 @@ public class Entity extends Object {
 	
 	//Attaque un personnage
 	
-	public void attack(double damages) {
-		this.life -= damages;
+	public void attack(Entity entity) {
+		this.life -= entity.getDamage();
 		this.isDead = this.checkIfDead();
 	}
 	

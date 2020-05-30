@@ -23,12 +23,16 @@ public class Map {
 	private Wall wall = new Wall();
 	private Path path = new Path();
 	
+	
+	private boolean isGameStarted;
+	
 	public Map() {
 		this.initMap();
 		this.initMobs();
 		this.initPlayers();
 		this.initItems();
 		this.update();
+		this.isGameStarted = true;
 	}
 	
 	//getters
@@ -38,7 +42,9 @@ public class Map {
 	public int getHeight() {
  		return this.height;
  	}
-	
+	public boolean isGameStarted() {
+		return this.isGameStarted;
+	}
 	
 	public Object[][] getMap() {
 		return this.map;
@@ -56,7 +62,11 @@ public class Map {
 		return this.players;
 	}
 	public Player getPlayer(int i) {
-		return this.players.get(i);
+		if (this.players.size() >= i) {
+			return this.players.get(i);
+		}
+		return null;
+		
 	}
 	
 	//Mobs
@@ -239,8 +249,8 @@ public class Map {
 		
 		
 		this.items.add(new PotionHeal(1,2));
-		this.items.add(new PotionHeal(2,1));
-		this.items.add(new PotionHeal(2,2));
+		this.items.add(new PotionActionPoint(2,1));
+		this.items.add(new PotionStrength(2,2));
 		
 		System.out.println("[OUT] Items Initialized");
 	}
@@ -328,67 +338,84 @@ public class Map {
 		return this.getObject(entity.getXPos()+xMove, entity.getYPos()+yMove).isWalkable();
 	}
 	
+	public boolean isGameFinished() {
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).isDead()) {
+				this.isGameStarted = false;
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public void nextRound(Map map) {
 		
-		//On recupere tous les mob de la map
-		for (int i = 0; i < map.getMobs().size(); i++) {
-			
-			//On recupère le joueur le plus proche du mob i
-			Player near = map.getNearestPlayerFrom(map.getMob(i));
-			
-			if (near.distanceBetween(map.getMob(i)) <= 5) {
+		 if (this.players.size() != 0) {
+			 
+			//On recupere tous les mob de la map
+			for (int i = 0; i < map.getMobs().size(); i++) {
 				
-			
-				/* Ne marche pas encore
-				ArrayList<String> blockedWays = new ArrayList<String>();
-				String[] ways = {"UP","DOWN","LEFt","RIGHT"};
-				for (int j = 0; j < 4; j++) {
-					if (!( map.canMove(map.getMob(i), ways[i]))){
-						blockedWays.add(ways[i]);
+				//On recupère le joueur le plus proche du mob i
+				
+				Player near = map.getNearestPlayerFrom(map.getMob(i));
+				
+				if (near.distanceBetween(map.getMob(i)) == 1) {
+					near.attack(map.getMob(i));
+					if (near.isDead()) {
+						this.setPath(near.getXPos(), near.getYPos());
 					}
-				}*/
-				
-				//On regarede le chemin pour aller aux coordonnées (haut, bas, gauche ou droite)
-				String way = map.getMob(i).getWayTo(near.getXPos(), near.getYPos());//,blockedWays); //3 ieme parametre optionel
-				
-				//Si le mob peut faire se mouvement
-				if (map.canMove(map.getMob(i), way)) {		
 					
-					//On met un chemiun aux corrdonnes du mob
-					map.setPath(map.getMob(i).getXPos(), map.getMob(i).getYPos());
-					//On déplace le mob
-					map.getMob(i).move(way,1);
-				}
+				} else if (near.distanceBetween(map.getMob(i)) <= 5) {
+					
 				
-				//On MAJ la map pour que les mobs ne se monte pas les un sur les autres
-				
-			} else {
-				
-				String[] ways = {"UP","DOWN","LEFT","RIGHT"};
-				String way = ways[(int) (Math.random()*4)];
-				int j = 0;
-				
-				while (!(map.canMove(map.getMob(i), way)) && j < 10) {
-					way = ways[(int) (Math.random()*4)];
-					j++;
-				}
-				
-				if (j != 10) {
-					//On met un chemiun aux corrdonnes du mob
-					map.setPath(map.getMob(i).getXPos(), map.getMob(i).getYPos());
-					//On déplace le mob
-					map.getMob(i).move(way, 1);
+					/* Ne marche pas encore
+					ArrayList<String> blockedWays = new ArrayList<String>();
+					String[] ways = {"UP","DOWN","LEFt","RIGHT"};
+					for (int j = 0; j < 4; j++) {
+						if (!( map.canMove(map.getMob(i), ways[i]))){
+							blockedWays.add(ways[i]);
+						}
+					}*/
+					
+					//On regarede le chemin pour aller aux coordonnées (haut, bas, gauche ou droite)
+					String way = map.getMob(i).getWayTo(near.getXPos(), near.getYPos());//,blockedWays); //3 ieme parametre optionel
+					
+					//Si le mob peut faire se mouvement
+					if (map.canMove(map.getMob(i), way)) {		
+						
+						//On met un chemiun aux corrdonnes du mob
+						map.setPath(map.getMob(i).getXPos(), map.getMob(i).getYPos());
+						//On déplace le mob
+						map.getMob(i).move(way,1);
+					}
+					
+					//On MAJ la map pour que les mobs ne se monte pas les un sur les autres
+					
+				} else {
+					
+					String[] ways = {"UP","DOWN","LEFT","RIGHT"};
+					String way = ways[(int) (Math.random()*4)];
+					int j = 0;
+					
+					while (!(map.canMove(map.getMob(i), way)) && j < 10) {
+						way = ways[(int) (Math.random()*4)];
+						j++;
+					}
+					
+					if (j != 10) {
+						//On met un chemiun aux corrdonnes du mob
+						map.setPath(map.getMob(i).getXPos(), map.getMob(i).getYPos());
+						//On déplace le mob
+						map.getMob(i).move(way, 1);
+						
+					}				
 					
 				}
-				
-				
-				
-				
+				map.update();
 			}
-			map.update();
-		}
-		//return map; 
+			//return map; 
+		 }
 	}
 	
 	
