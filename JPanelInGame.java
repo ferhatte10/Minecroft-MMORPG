@@ -114,12 +114,18 @@ public class JPanelInGame extends JPanel {
 	//joueur tour
 	private int rounds = 0;
 	
+	///right pane
+	private JPanel rightPane;
+	
 	
 	//Penneau jeu
-	JPanel jeu;
+	private JPanel jeu;
 	public Map map ;
 	public JPanel txtJeu;
 	
+	
+	//console
+	private JTextArea console;
 	
 	public JPanelInGame() {
 		super();
@@ -140,7 +146,8 @@ public class JPanelInGame extends JPanel {
 		
 		
 		inGame.add(buildLeftPane(), BorderLayout.LINE_START);
-		inGame.add(buildJeu(), BorderLayout.CENTER );		
+		inGame.add(buildRightPane(), BorderLayout.CENTER);
+				
 	}
 	
 	public JPanel buildLeftPane() {
@@ -235,7 +242,7 @@ public class JPanelInGame extends JPanel {
 		car.add(lblDamage);
 		
 		//Initiative
-		lblProtectionTitle.setToolTipText("Protection finale (Résistance + défense)");
+		lblProtectionTitle.setToolTipText("Protection finale ((Résistance + défense)/2)");
 		car.add(lblProtectionTitle);
 		lblProtection = new JLabel();
 		car.add(lblProtection);
@@ -286,7 +293,12 @@ public class JPanelInGame extends JPanel {
 		return act;
 	}
 
-	
+	public JPanel buildRightPane() {		
+		rightPane = new JPanel();
+		rightPane.add(buildJeu());			
+		return rightPane;
+		
+	}
 	
 	public JPanel buildJeu() {
 		jeu = new JPanel();
@@ -309,6 +321,20 @@ public class JPanelInGame extends JPanel {
 		updateGame();
 		
 		return jeu;
+	}
+	
+	public JScrollPane buildConsole() {
+		
+		console = new JTextArea();
+		console.setOpaque(false);
+		console.setBackground(new Color(0,0,0,0));
+
+		JScrollPane scrollPane = new JScrollPane(console);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setOpaque(false);
+		
+		return scrollPane;
+		
 	}
 	
  	public void updateGame() {
@@ -678,10 +704,10 @@ public class JPanelInGame extends JPanel {
 					
 					//On ajoute les PA si le max est pas franchi et que ca n'est pas le 1er tour
 					if (rounds != 0 && current.getActionPoint() < 30 ) {
-						if (current.getActionPoint() + 6 > 30) {
+						if (current.getActionPoint() + 3 > 30) {
 							current.setActionPoint(30);
 						} else {
-							current.addActionPoint(6);
+							current.addActionPoint(3);
 						}
 					}
 					

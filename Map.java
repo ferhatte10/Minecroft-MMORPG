@@ -3,7 +3,7 @@ package projet_azzouz_saidoun;
 import java.util.ArrayList;
 
 public class Map {
-	private int width = 25;
+	private int width = 35;
 	private int height = 20;
 	
 	private int nbObstacles = 7;

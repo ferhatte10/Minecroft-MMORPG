@@ -3,8 +3,11 @@ package projet_azzouz_saidoun;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
 
 import javax.swing.*;
+
+
 
 
 public class Window extends JFrame{
@@ -17,8 +20,10 @@ public class Window extends JFrame{
 	
 	public Window() {
 		super("Jeu 2D trop cool");
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		this.setMinimumSize(new Dimension(1280, 720));
+		
+		
+		
+		
 		
 
 		
@@ -51,6 +56,8 @@ public class Window extends JFrame{
 		 
 		 
 		 
+		
+		
 		
 	
 		//TEMPORAIORE

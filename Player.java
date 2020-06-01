@@ -3,8 +3,10 @@ package projet_azzouz_saidoun;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -32,6 +34,10 @@ public class Player extends Entity {
 	JDialog characteristics;
 	
 	JButton button;
+	JButton balanced;
+	JButton stronger;
+	JButton skilled;
+	JButton resistant;
 	
 	private static int SKILLS_POINTS = 18;
 	private JLabel remainingPoints;
@@ -96,7 +102,7 @@ public class Player extends Entity {
 		this.setDefense(this.getInventory().getEquipedArmor().getProtection());
 		this.setDodge(this.skill - this.getOvercrowded());
 		this.setDamage(this.strenght + this.getAttack());
-		this.setProtection(this.resistance + this.getDefense());
+		this.setProtection((this.resistance + this.getDefense())/2);
 
 	}
 	
@@ -113,21 +119,18 @@ public class Player extends Entity {
 		characteristics.setAlwaysOnTop (true);
 		characteristics.setModalityType (ModalityType.APPLICATION_MODAL);
 		characteristics.setEnabled(true);
-		characteristics.setBounds(500,500,500,200);
+		characteristics.setBounds(500,500,700,370);
+		characteristics.setDefaultCloseOperation(0);
+		
 		JPanel main = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
 		
-		//listener
+		//listener de changement du spiner
 		
 		class SliderListener implements ChangeListener {
 		    public void stateChanged(ChangeEvent e) { 
-		    	
-		    	
-		        
-		        
-		    	
-		    	
+
 		    	int somme = (int) spiStrenght.getValue() +  (int) spiSkills.getValue() + (int) spiResistance.getValue();
 		        if (somme == SKILLS_POINTS) {
 		        	button.setEnabled(true);
@@ -139,13 +142,9 @@ public class Player extends Entity {
 					} else {
 						remainingPoints.setText("Il reste encore " +  String.valueOf(SKILLS_POINTS-somme) + " points à attribuer.");
 					}
-		        	
-		        	
-		        	
+	
 		        }
-
-		        
-		        		
+		
 		    }
 		}
 		
@@ -155,10 +154,12 @@ public class Player extends Entity {
 		
 		//Titre compétece
 		final JLabel title = new JLabel("Répartissez vos 18 points entres les 3 compétences");
+		title.setFont(new Font("Arial",Font.PLAIN, 20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 2;
+		c.insets = new Insets(0, 0, 20,0);
 		main.add(title, c);
 		
 		//spiners
@@ -168,6 +169,7 @@ public class Player extends Entity {
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 0,0);
 		main.add(lblStrenght, c);
 		
 		spiModelStrenght = new SpinnerNumberModel(0,0,SKILLS_POINTS,1);
@@ -177,7 +179,7 @@ public class Player extends Entity {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 1;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		main.add(spiStrenght, c);
 		
 		//adresse
@@ -195,7 +197,7 @@ public class Player extends Entity {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 2;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
 		main.add(spiSkills, c);
 		
 		
@@ -205,6 +207,7 @@ public class Player extends Entity {
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 20,0);
 		main.add(lblResistance, c);
 		
 		
@@ -216,8 +219,50 @@ public class Player extends Entity {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 3;
-		c.gridwidth = 1;
+		c.gridwidth = 2;
+		c.insets = new Insets(0, 0, 20,0);
 		main.add(spiResistance, c);
+		//configurations par defaut
+		
+		
+
+		balanced = new JButton("Equilibré");
+		balanced.addActionListener(new Listener(1));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 5;
+		c.gridwidth = 3;
+		c.insets = new Insets(0, 0, 0,0);
+		main.add(balanced, c);
+		
+		stronger = new JButton("Fort");
+		stronger.addActionListener(new Listener(2));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 20,0);
+		main.add(stronger, c);
+		
+		skilled = new JButton("Compétant");
+		skilled.addActionListener(new Listener(3));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 20,0);
+		main.add(skilled, c);
+		
+		resistant = new JButton("Résistant");
+		resistant.addActionListener(new Listener(4));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = 6;
+		c.gridwidth = 1;
+		c.insets = new Insets(0, 0, 20,0);
+		main.add(resistant, c);
+		
+		
 		
 		
 		//Buton valiuder
@@ -226,28 +271,22 @@ public class Player extends Entity {
 		button.setEnabled(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 8;
 		c.gridwidth = 0;
 		main.add(button, c);
 		
 		remainingPoints = new JLabel("Il reste encore " +  String.valueOf(SKILLS_POINTS) + " points à attribuer.");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 9;
 		c.gridwidth = 2;
 		main.add(remainingPoints, c);
 		
 		
-		characteristics.setVisible(true);
-		
-		
-
 		
 		
 		
-		//spiSkills.addChangeListener(listener);
-		//spiResistance.addChangeListener(listener);
-		
+		characteristics.setVisible(true);	
 		
 	}
 	
@@ -267,7 +306,28 @@ public class Player extends Entity {
 				case 0:
 					characteristics.dispose();
 					characteristics.setVisible(false);
-				break;				
+				break;	
+				case 1:
+					spiResistance.setValue(6);
+					spiSkills.setValue(6);
+					spiStrenght.setValue(6);
+				break;
+				case 2:
+					spiResistance.setValue(10);
+					spiSkills.setValue(4);
+					spiStrenght.setValue(4);					
+				break;
+				case 3:
+					spiResistance.setValue(4);
+					spiSkills.setValue(10);
+					spiStrenght.setValue(4);
+				break;
+				case 4:
+					spiResistance.setValue(4);
+					spiSkills.setValue(4);
+					spiStrenght.setValue(10);
+				break;
+				
 			}
 		}
 	}
