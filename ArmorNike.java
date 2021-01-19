@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class ArmorNike extends Armor {
 
 	public ArmorNike(int xPos, int yPos) {

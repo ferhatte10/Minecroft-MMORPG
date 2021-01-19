@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class Item extends Object{
 	private int xPos;
 	private int yPos;

@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class WeaponHand extends Weapon {
 
 	public WeaponHand(int xPos, int yPos) {

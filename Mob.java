@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 import java.util.ArrayList;
 
 
@@ -17,11 +15,11 @@ public class Mob extends Entity  {
 	
 	
 	public String getWayTo(int xTarget, int yTarget) {
-		//j'ai (ilian) trouvé le moyen rapide mais peu efficace pour calculer le chemin
+		//j'ai (ilian) trouvï¿½ le moyen rapide mais peu efficace pour calculer le chemin
 		//Ils se rendent bien vers un joueur MAIS
-		//Ils restent bloqués derriere les murs mdr
-		//pas très malin ^^ 
-		//Les plus grand jeux ont commencés comme ça ? N'est-ce pas ?
+		//Ils restent bloquï¿½s derriere les murs mdr
+		//pas trï¿½s malin ^^ 
+		//Les plus grand jeux ont commencï¿½s comme ï¿½a ? N'est-ce pas ?
 		int xToGo = this.getXPos() - xTarget;
 		int yToGo = this.getYPos() - yTarget;
 		

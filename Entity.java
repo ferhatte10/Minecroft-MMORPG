@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class Entity extends Object {
 	private boolean isDead;
 	private int life;
@@ -88,7 +86,7 @@ public class Entity extends Object {
 	}
 	
 	//AUTRES METHODES
-	//renvoie vrai si le personnage est mort et défini sa vie à 0 (pour les val negatives) et son etat à mort
+	//renvoie vrai si le personnage est mort et dï¿½fini sa vie ï¿½ 0 (pour les val negatives) et son etat ï¿½ mort
 	public boolean checkIfDead(){
 		if (this.life <= 0) {
 			this.life = 0;

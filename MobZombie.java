@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class MobZombie extends Mob {
 
 	public MobZombie(int xPos, int yPos) {

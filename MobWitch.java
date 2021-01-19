@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class MobWitch extends Mob {
 
 	public MobWitch(int xPos, int yPos) {

@@ -1,4 +1,3 @@
-package projet_azzouz_saidoun;
 
 import java.awt.*;
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class JPanelMenu extends JPanel{
 	JPanel menu;
 
 	static final JPanel boutons = new JPanel();
-	static final JButton boutonCommencer = new JButton("Commencer à jouer");
+	static final JButton boutonCommencer = new JButton("Commencer ï¿½ jouer");
 	
 	static final int BOUTON_COMMENCER = 0;
 	

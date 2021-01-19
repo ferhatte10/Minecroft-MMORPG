@@ -1,5 +1,3 @@
-package projet_azzouz_saidoun;
-
 public class Weapon extends Item {
 	private int damages;
 	private int range;

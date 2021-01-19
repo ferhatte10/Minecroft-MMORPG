@@ -1,4 +1,3 @@
-package projet_azzouz_saidoun;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
