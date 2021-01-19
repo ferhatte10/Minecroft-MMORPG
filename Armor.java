@@ -1,5 +1,3 @@
-
-
 public class Armor extends Item {
 	private int protection;
 	private int overcrowded;
